@@ -202,3 +202,6 @@ GRPC: Test run the gRPC client
 - Protocol buffers: https://developers.google.com/protocol-buffers/docs/overview 
 - Java gateway project example https://github.com/wejrowski/grpc-gateway-java-gradle/blob/master/entry.go
 - Web gRPC: https://github.com/grpc/grpc-web
+- gRPC intro: https://www.baeldung.com/grpc-introduction
+- Another tutorials: https://codelabs.developers.google.com/codelabs/cloud-grpc-java/index.html?index=..%2F..index#2
+- 
