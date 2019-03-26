@@ -109,6 +109,10 @@ Finally to create swagger docs:
 
 ```
 
+Running them togheter: 
+
+1. Run server 
+
 
 
 
