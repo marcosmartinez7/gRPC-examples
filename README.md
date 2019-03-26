@@ -185,6 +185,7 @@ marcos@marcos-rsk:~/grpc-java/examples$ go run entry.go
 
 Test a POST request.
 
+![Alt test](gateway.png?raw=true "REST")
 
 
 
