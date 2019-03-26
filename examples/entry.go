@@ -13,7 +13,7 @@ import (
 )
 
 var (
-	echoEndpoint = flag.String("echo_endpoint", "localhost:50051", "endpoint of YourService")
+	echoEndpoint = flag.String("hello_rsk", "localhost:50051", "Hello rsk endpoint")
 )
 
 func run() error {
@@ -24,10 +24,10 @@ func run() error {
 	mux := runtime.NewServeMux()
 	opts := []grpc.DialOption{grpc.WithInsecure()}
 
-	companyErr := gw.RegisterRSKGreeterHandlerFromEndpoint(ctx, mux, *echoEndpoint, opts)
+	registerErr := gw.RegisterRSKGreeterHandlerFromEndpoint(ctx, mux, *echoEndpoint, opts)
 
-	if companyErr != nil {
-		return companyErr
+	if registerErr != nil {
+		return registerErr
 	}
 
 
@@ -43,3 +43,4 @@ func main() {
 	}
 
 }
+
