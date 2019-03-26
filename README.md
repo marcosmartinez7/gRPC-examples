@@ -126,7 +126,7 @@ import (
 )
 
 var (
-	echoEndpoint = flag.String("echo_endpoint", "localhost:50051", "endpoint of YourService")
+	echoEndpoint = flag.String("hello_rsk", "localhost:50051", "Hello rsk endpoint")
 )
 
 func run() error {
@@ -137,10 +137,10 @@ func run() error {
 	mux := runtime.NewServeMux()
 	opts := []grpc.DialOption{grpc.WithInsecure()}
 
-	instanceErr := gw.RegisterRSKGreeterHandlerFromEndpoint(ctx, mux, *echoEndpoint, opts)
+	registerErr := gw.RegisterRSKGreeterHandlerFromEndpoint(ctx, mux, *echoEndpoint, opts)
 
-	if instanceErr != nil {
-		return companyErr
+	if registerErr != nil {
+		return registerErr
 	}
 
 
@@ -175,6 +175,15 @@ INFO: Server started, listening on 50051
 2. 
 
 Run the GO gateway
+
+```
+marcos@marcos-rsk:~/grpc-java/examples$ go run entry.go 
+
+```
+
+3.
+
+Test a POST request.
 
 
 
