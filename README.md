@@ -27,9 +27,7 @@ Based on steps from https://github.com/grpc/grpc-java/blob/master/examples/READM
 
 1. 
 
-Created a hellorsk.proto that defines the Service interface, Messages and the Rest API endpoints.
-
-
+a. Created a hellorsk.proto that defines the Service interface, Messages and the Rest API endpoints.
 b. Added the rskServer task to gradle configuration and `applicationDistribution`
 c. `mvn compile`
 d. `./gradlew installDist`
@@ -85,13 +83,11 @@ This will generate a `hellorsk.pb.go` file.
 Then, as we have the client already running from step 2, we need a reverse proxy, we create a GO gateway with: 
 
 ```
-
   protoc -I/usr/local/include -I. \
   -I$GOPATH/src \
   -I$GOPATH/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
   --grpc-gateway_out=logtostderr=true:. \
   ./hellorsk.proto
-
 
 ```
 
@@ -99,20 +95,86 @@ Then, as we have the client already running from step 2, we need a reverse proxy
 Finally to create swagger docs: 
 
 ```
-
  protoc -I/usr/local/include -I. \
   -I$GOPATH/src \
   -I$GOPATH/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
   --swagger_out=logtostderr=true:. \
   ./hellorsk.proto
+```
 
+Now we need to create a GO entry file that runs up the Gateway: 
+
+Basically, we need to define 
+
+- where is the gateway (the gw imported folder)
+- change the port to be used, this example uses 8080 to listen and 50051 as port to redirect gRPC traffic (on that port is the gRPC Server up and running)
+- invoke the `RegisterRSKGreeterHandlerFromEndpoint` 
 
 ```
+package main
+
+import (
+	"flag"
+	"net/http"
+
+	"github.com/golang/glog"
+	"golang.org/x/net/context"
+	"github.com/grpc-ecosystem/grpc-gateway/runtime"
+	"google.golang.org/grpc"
+
+	gw "./src/main/proto"
+)
+
+var (
+	echoEndpoint = flag.String("echo_endpoint", "localhost:50051", "endpoint of YourService")
+)
+
+func run() error {
+	ctx := context.Background()
+	ctx, cancel := context.WithCancel(ctx)
+	defer cancel()
+
+	mux := runtime.NewServeMux()
+	opts := []grpc.DialOption{grpc.WithInsecure()}
+
+	instanceErr := gw.RegisterRSKGreeterHandlerFromEndpoint(ctx, mux, *echoEndpoint, opts)
+
+	if instanceErr != nil {
+		return companyErr
+	}
+
+
+	return http.ListenAndServe(":8080", mux)
+}
+
+func main() {
+	flag.Parse()
+	defer glog.Flush()
+
+	if err := run(); err != nil {
+		glog.Fatal(err)
+	}
+
+}
+
+```
+
+
+
 
 Running them togheter: 
 
 1. Run server 
 
+```
+marcos@marcos-rsk:~/grpc-java/examples$ ./build/install/examples/bin/hello-rsk-server
+Mar 26, 2019 11:56:03 AM io.grpc.examples.hellorsk.HelloRskServer start
+INFO: Server started, listening on 50051
+```
+
+2. 
+
+Run the GO gateway
 
 
 
