@@ -58,6 +58,60 @@ To run it:
 
 4. 
 
+Based on https://grpc-ecosystem.github.io/grpc-gateway/docs/usage.html
+
+For this step you need:
+
+a. Install golang
+b. Install protoc (the procol buff compiler). Download the latest release from https://github.com/protocolbuffers/protobuf/releases. For example https://github.com/protocolbuffers/protobuf/releases/download/v3.7.0/protoc-3.7.0-linux-x86_64.zip
+
+With protoc we will create a gRPC stub, based on this anotation added to te proto file 
+
+`import "google/api/annotations.proto";`
+
+To generate a stub, run:
+
+```
+protoc -I/usr/local/include -I. \
+  -I$GOPATH/src \
+  -I$GOPATH/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
+  --go_out=plugins=grpc:. \
+  ./hellorsk.proto
+
+```
+
+This will generate a `hellorsk.pb.go` file. 
+
+Then, as we have the client already running from step 2, we need a reverse proxy, we create a GO gateway with: 
+
+```
+
+  protoc -I/usr/local/include -I. \
+  -I$GOPATH/src \
+  -I$GOPATH/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
+  --grpc-gateway_out=logtostderr=true:. \
+  ./hellorsk.proto
+
+
+```
+
+
+Finally to create swagger docs: 
+
+```
+
+ protoc -I/usr/local/include -I. \
+  -I$GOPATH/src \
+  -I$GOPATH/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
+  --swagger_out=logtostderr=true:. \
+  ./hellorsk.proto
+
+
+
+
+
+
+
 
 ### Other interesting links
 
