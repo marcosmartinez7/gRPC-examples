@@ -183,9 +183,14 @@ marcos@marcos-rsk:~/grpc-java/examples$ go run entry.go
 
 3.
 
-Test a POST request.
+REST: Test a POST request.
 
 ![Alt test](gateway.png?raw=true "REST")
+
+GRPC: Test run the gRPC client 
+
+![Alt test](gateway 2.png?raw=true "REST")
+
 
 
 
