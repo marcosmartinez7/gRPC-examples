@@ -189,7 +189,7 @@ REST: Test a POST request.
 
 GRPC: Test run the gRPC client 
 
-![Alt test](gateway 2.png?raw=true "REST")
+![Alt test](gateway%202.png?raw=true "REST")
 
 
 
