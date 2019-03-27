@@ -27,7 +27,7 @@ Import example project. Extracted from https://github.com/grpc/grpc-java/tree/ma
 Based on steps from https://github.com/grpc/grpc-java/blob/master/examples/README.md
 
 
-1. 
+1. Create a protocol buffer file to define a greeter service
 
 a. Created a hellorsk.proto that defines the Service interface, Messages and the Rest API endpoints.
 
@@ -37,7 +37,7 @@ c. `mvn compile`
 
 d. `./gradlew installDist`
 
-2.
+2. Implement a Java gRPC Server with that specification
 
 The previous step will create the classes defined on the proto. Also, it will define the gRPC base service to implement. So the only thing remining is to implement it. 
 
@@ -51,7 +51,7 @@ To run it:
 
 `./build/install/examples/bin/hello-rsk-server`
 
-3. 
+3. Implement a Java gRPC Client with that specification
 
 Idem 2, you only need to implement the client. The `HelloRskClient` has a blocking stub to make gRPC calls to `HelloRskServer`
 
@@ -59,7 +59,7 @@ To run it:
 
 `./build/install/examples/bin/hello-rsk-client`
 
-4. 
+4. Implement a Gateway that handles both gRPC invocations and REST ones.
 
 Based on https://grpc-ecosystem.github.io/grpc-gateway/docs/usage.html
 
