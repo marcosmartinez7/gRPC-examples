@@ -18,6 +18,8 @@ https://grpc.io/docs
 3. Implement a Java gRPC Client with that specification
 4. Implement a Gateway that handles both gRPC invocations and REST ones.
 
+![Alt text](https://grpc.io/img/grpc-web-arch.png)
+
 ### Step by step
 
 Import example project. Extracted from https://github.com/grpc/grpc-java/tree/master/examples. 
