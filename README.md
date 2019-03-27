@@ -30,8 +30,11 @@ Based on steps from https://github.com/grpc/grpc-java/blob/master/examples/READM
 1. 
 
 a. Created a hellorsk.proto that defines the Service interface, Messages and the Rest API endpoints.
+
 b. Added the rskServer task to gradle configuration and `applicationDistribution`
+
 c. `mvn compile`
+
 d. `./gradlew installDist`
 
 2.
