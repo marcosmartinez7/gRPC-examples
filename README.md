@@ -209,4 +209,4 @@ GRPC: Test run the gRPC client
 - Web gRPC: https://github.com/grpc/grpc-web
 - gRPC intro: https://www.baeldung.com/grpc-introduction
 - Another tutorials: https://codelabs.developers.google.com/codelabs/cloud-grpc-java/index.html?index=..%2F..index#2
-- 
+
